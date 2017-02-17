@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.ssh.insert_key = false
+  config.vm.provider :virtualbox do |vb|
+   vb.customize ["modufyvm", :id, "--memeory", "256"]
+end
+
+#APPS Server 1.
+config.vm.define "app1" do |app|
+  app.vm.hostname = "web.app1.dev"
+  app.vm.box = "centos/7"
+  app.vm.network :private_network, ip: "192.168.1.103"
+end
+
+#APPS Server 2.
+config.vm.define "app2" do |app|
+  app.vm.hostname = "web.app2.dev"
+  app.vm.box = "centos/7"
+  app.vm.network :private_network, ip: "192.168.1.104"
+end
+
+#DB Server .
+config.vm.define "app3" do |app|
+  app.vm.hostname = "web.app3.dev"
+  app.vm.box = "centos/7"
+  app.vm.network :private_network, ip: "192.168.1.105"
+end
+end
